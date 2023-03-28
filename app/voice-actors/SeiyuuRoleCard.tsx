@@ -1,5 +1,5 @@
 import { SeiyuuRole } from 'api/anilist/types'
-import Card from 'components/shared/Card'
+import Card from '../base-ui/Card'
 
 type Props = {
   role: SeiyuuRole
@@ -24,7 +24,7 @@ export default function SeiyuuRoleCard({ role }: Props) {
           </div>
           <div>
             <a
-              className="text-textSecondary hover:text-primary text-sm"
+              className="text-sm text-textSecondary hover:text-primary"
               href={`https://anilist.co/anime/${role.anime.id}`}
             >
               {role.anime.title.romaji}

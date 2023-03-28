@@ -1,4 +1,4 @@
-import Card from 'components/shared/Card'
+import Card from 'app/base-ui/Card'
 
 type Props = {
   changeList: any[]

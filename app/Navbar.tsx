@@ -1,7 +1,9 @@
-import { AuthContext } from 'context/AuthContext'
+'use client'
+
+import { AuthContext } from './AuthContext'
 import Link from 'next/link'
 import { useContext } from 'react'
-import Avatar from './Avatar'
+import Avatar from './base-ui/Avatar'
 
 export default function Navbar() {
   const { loggedIn, userInfo, login, logout } = useContext(AuthContext)
@@ -15,15 +17,15 @@ export default function Navbar() {
   }
 
   return (
-    <div className="px-5 py-3 select-none bg-bgSecondary text-textPrimary">
-      <div className="grid items-center grid-cols-3">
+    <div className="select-none bg-bgSecondary px-5 py-3 text-textPrimary">
+      <div className="grid grid-cols-3 items-center">
         <div className="mr-auto text-xl">Anime Apps</div>
 
-        <div className="flex gap-5 mx-auto">
+        <div className="mx-auto flex gap-5">
           <Link href="/">
             <span className="hover:text-primary">Seiyuu Lookup</span>
           </Link>
-          <Link href="datefix">
+          <Link href="/date-fixer">
             <span className="hover:text-primary">Date Fixer</span>
           </Link>
         </div>

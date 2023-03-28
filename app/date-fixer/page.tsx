@@ -1,17 +1,16 @@
-import DateFixChangePreviewTable from 'components/anime/DateFixChangePreviewTable'
-import Button from 'components/shared/Button'
-import LoadingIndicator from 'components/shared/LoadingIndicator'
+import Button from 'app/base-ui/Button'
+import LoadingIndicator from 'app/base-ui/LoadingIndicator'
 import { AuthContext } from 'context/AuthContext'
 import { useAnilistDateFixer } from 'hooks/useAnilistDateFixer'
-import { NextPage } from 'next'
-import { useContext } from 'react'
+import { ReactNode, useContext } from 'react'
+import DateFixChangePreviewTable from './DateFixChangePreviewTable'
 
-const DateFix: NextPage = () => {
+export default function DateFixerPage() {
   const { loggedIn, userInfo, login } = useContext(AuthContext)
 
   const { state, calculateChanges } = useAnilistDateFixer(userInfo?.id)
 
-  const currentStepHtml = (): React.ReactElement => {
+  const currentStepHtml = (): ReactNode => {
     switch (state.status) {
       case 'idle':
         return (
@@ -37,9 +36,9 @@ const DateFix: NextPage = () => {
   }
 
   return (
-    <div className="flex flex-col flex-grow overflow-auto">
+    <div className="flex flex-grow flex-col overflow-auto">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center my-6">
+        <div className="my-6 flex flex-col items-center">
           {loggedIn ? (
             currentStepHtml()
           ) : (
@@ -55,5 +54,3 @@ const DateFix: NextPage = () => {
     </div>
   )
 }
-
-export default DateFix

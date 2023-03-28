@@ -1,14 +1,15 @@
+'use client'
+
 import { getAnimeCharactersAndSeiyuus } from 'api/anilist'
 import { CharacterWithSeiyuus, Anime } from 'api/anilist/types'
-import AnimeSearchInput from 'components/anime/AnimeSearchInput'
-import SeiyuuCharacterCard from 'components/anime/CharacterCard'
-import SeiyuuOtherRolesColumn from 'components/anime/SeiyuuRolesColumn'
-import Checkbox from 'components/shared/Checkbox'
-import { AuthContext } from 'context/AuthContext'
-import { NextPage } from 'next'
+import Checkbox from 'app/base-ui/Checkbox'
+import { AuthContext } from '../AuthContext'
 import { useContext, useState } from 'react'
+import AnimeSearchInput from './AnimeSearchInput'
+import SeiyuuCharacterCard from './CharacterCard'
+import SeiyuuOtherRolesColumn from './SeiyuuRolesColumn'
 
-const SeiyuuLookup: NextPage = () => {
+export default function VoiceActorsPage() {
   const { loggedIn } = useContext(AuthContext)
 
   const [characterResults, setCharacterResults] = useState<
@@ -53,5 +54,3 @@ const SeiyuuLookup: NextPage = () => {
     </div>
   )
 }
-
-export default SeiyuuLookup

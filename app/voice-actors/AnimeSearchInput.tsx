@@ -1,10 +1,10 @@
 import { searchAnime } from 'api/anilist'
 import { Anime } from 'api/anilist/types'
-import TextInput from 'components/shared/TextInput'
+import TextInput from '../base-ui/TextInput'
 import { ChangeEvent, useMemo, useState } from 'react'
 import throttle from 'lodash.throttle'
 import classes from 'utils/classes'
-import AnimeListItem from 'components/anime/AnimeListItem'
+import AnimeListItem from './AnimeListItem'
 
 export default function AnimeSearchInput({
   onAnimeSelected = (anime: Anime) => {},

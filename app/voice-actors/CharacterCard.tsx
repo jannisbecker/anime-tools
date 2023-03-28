@@ -1,5 +1,5 @@
 import { CharacterWithSeiyuus } from 'api/anilist/types'
-import Card from '../shared/Card'
+import Card from '../base-ui/Card'
 
 type Props = {
   character: CharacterWithSeiyuus
@@ -19,7 +19,7 @@ export default function SeiyuuCharacterCard({ character }: Props) {
         >
           {character.name.full}
         </a>
-        <div className="text-textSecondary text-sm">
+        <div className="text-sm text-textSecondary">
           {character.name.native}
         </div>
       </div>

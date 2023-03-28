@@ -1,9 +1,11 @@
+'use client'
+
 import { getCurrentUserInfo } from 'api/anilist'
 import { UserInfo } from 'api/anilist/types'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { createContext, useEffect, useState } from 'react'
 
-const AuthContext = (React as any).createContext()
+const AuthContext = createContext()
 
 type AuthState = {
   loggedIn: boolean
