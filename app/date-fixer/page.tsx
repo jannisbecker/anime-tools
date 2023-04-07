@@ -1,7 +1,7 @@
 import Button from 'app/base-ui/Button'
 import LoadingIndicator from 'app/base-ui/LoadingIndicator'
-import { AuthContext } from 'context/AuthContext'
-import { useAnilistDateFixer } from 'hooks/useAnilistDateFixer'
+import { AuthContext } from '../AuthContext'
+import { useAnilistDateFixer } from './useAnilistDateFixer'
 import { ReactNode, useContext } from 'react'
 import DateFixChangePreviewTable from './DateFixChangePreviewTable'
 

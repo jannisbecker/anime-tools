@@ -3,55 +3,60 @@
 import { getCurrentUserInfo } from 'api/anilist'
 import { UserInfo } from 'api/anilist/types'
 import { useRouter } from 'next/navigation'
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
-const AuthContext = createContext()
-
-type AuthState = {
-  loggedIn: boolean
-  token: string | null
-  expires: number
-  userInfo: UserInfo | null
+type AuthInfo = {
+  user: UserInfo
+  token: string
+  tokenExpires: number
 }
+
+export type AuthContextProps = {
+  state: AuthInfo | null
+  isLoggedIn: () => boolean
+  login: () => void
+  logout: () => void
+}
+
+const AuthContext = createContext<AuthContextProps>(null!)
 
 const currentTimestamp = () => Math.round(Date.now() / 1000)
 
-const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
-  const [state, setState] = useState<AuthState>()
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, setState] = useState<AuthInfo | null>(null)
 
   const router = useRouter()
 
-  // read state from localstorage on startup
-  useEffect(() => {
+  function loadSessionFromLocalStorage() {
     const lsItem = localStorage.getItem('authState')
     if (lsItem) {
-      const previousState: AuthState = JSON.parse(lsItem)
+      const previousState: AuthInfo = JSON.parse(lsItem)
 
-      if (previousState.expires > currentTimestamp() + 60) {
+      if (previousState.tokenExpires > currentTimestamp() + 60) {
         setState(previousState)
       }
     }
-  }, [])
+  }
 
-  // read token from url if available and fetch user info
-  useEffect(() => {
+  function tryLoginFromUrlHash() {
     if (location.hash.length > 0) {
       const params = new URLSearchParams(location.hash.substring(1))
-      if (params.has('access_token')) {
-        const token = params.get('access_token') as string
-        const expires = currentTimestamp() + Number(params.get('expires_in'))
+
+      const token = params.get('access_token')
+      if (token) {
+        const tokenExpires =
+          currentTimestamp() + Number(params.get('expires_in'))
 
         getCurrentUserInfo(token)
-          .then((userInfo) => {
-            const newState: AuthState = {
-              loggedIn: true,
+          .then((user) => {
+            const loggedInState: AuthInfo = {
               token,
-              expires,
-              userInfo,
+              tokenExpires,
+              user,
             }
 
-            setState(newState)
-            localStorage.setItem('authState', JSON.stringify(newState))
+            setState(loggedInState)
+            localStorage.setItem('authState', JSON.stringify(loggedInState))
             router.push('')
           })
           .catch(() =>
@@ -61,22 +66,36 @@ const AuthProvider = ({ children }: React.PropsWithChildren<{}>) => {
           )
       }
     }
+  }
+
+  useEffect(() => {
+    loadSessionFromLocalStorage()
+    tryLoginFromUrlHash()
   }, [])
+
+  function isLoggedIn() {
+    return !!state?.user
+  }
 
   function login() {
     window.location.href = `https://anilist.co/api/v2/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_ANILIST_CLIENT_ID}&response_type=token`
   }
 
   function logout() {
-    setState(undefined)
+    setState(null)
     localStorage.removeItem('authState')
   }
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout }}>
+    <AuthContext.Provider value={{ state, isLoggedIn, login, logout }}>
       {children}
     </AuthContext.Provider>
   )
+}
+
+function useAuthContext() {
+  const context = useContext(AuthContext)
+  if (!context) throw Error("Don't use AuthContext outside of AuthProvider")
 }
 
 export { AuthContext, AuthProvider }

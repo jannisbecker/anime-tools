@@ -1,53 +1,53 @@
 export type Paginated<T> = {
-  data: T;
-  hasNextPage: boolean;
-};
+  data: T
+  hasNextPage: boolean
+}
 
 export type UserInfo = {
-  id: string;
-  name: string;
+  id: string
+  name: string
   avatar: {
-    romaji: string;
-  };
-};
+    medium: string
+  }
+}
 
 export type Anime = {
-  id: number;
+  id: number
   title: {
-    romaji: string;
-    english: string;
-  };
+    romaji: string
+    english: string
+  }
   coverImage: {
-    medium: string;
-  };
-};
+    medium: string
+  }
+}
 
 export type Character = {
-  id: number;
+  id: number
   name: {
-    full: string;
-    native: string;
-  };
+    full: string
+    native: string
+  }
   image: {
-    medium: string;
-  };
-};
+    medium: string
+  }
+}
 
 export type CharacterWithSeiyuus = Character & {
-  seiyuus: Seiyuu[];
-};
+  seiyuus: Seiyuu[]
+}
 
 export type Seiyuu = {
-  id: number;
+  id: number
   name: {
-    full: string;
-  };
+    full: string
+  }
   image: {
-    medium: string;
-  };
-};
+    medium: string
+  }
+}
 
 export type SeiyuuRole = {
-  character: Character;
-  anime: Anime;
-};
+  character: Character
+  anime: Anime
+}

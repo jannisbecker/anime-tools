@@ -6,10 +6,10 @@ import { useContext } from 'react'
 import Avatar from './base-ui/Avatar'
 
 export default function Navbar() {
-  const { loggedIn, userInfo, login, logout } = useContext(AuthContext)
+  const { isLoggedIn, state, login, logout } = useContext(AuthContext)
 
   function onAvatarClick() {
-    if (!loggedIn) {
+    if (!isLoggedIn()) {
       login()
     } else {
       logout()
@@ -22,18 +22,18 @@ export default function Navbar() {
         <div className="mr-auto text-xl">Anime Apps</div>
 
         <div className="mx-auto flex gap-5">
-          <Link href="/">
-            <span className="hover:text-primary">Seiyuu Lookup</span>
+          <Link href="/voice-actors">
+            <span className="hover:text-primary">Voice Actors</span>
           </Link>
           <Link href="/date-fixer">
-            <span className="hover:text-primary">Date Fixer</span>
+            <span className="hover:text-primary">Dates Fix</span>
           </Link>
         </div>
 
         <div className="ml-auto cursor-pointer">
           <Avatar
-            faded={!loggedIn}
-            imageUrl={userInfo?.avatar.medium}
+            faded={!isLoggedIn}
+            imageUrl={state?.user.avatar.medium}
             onClick={onAvatarClick}
           />
         </div>
