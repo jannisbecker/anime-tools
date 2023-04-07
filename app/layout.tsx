@@ -1,7 +1,8 @@
 import { AuthProvider } from './AuthContext'
-import Navbar from './Navbar'
+import Navbar from './Sidebar'
 
 import './globals.css'
+import Sidebar from './Sidebar'
 
 export default function RootLayout({
   children,
@@ -12,8 +13,8 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <div className="flex h-screen flex-col bg-bgPrimary">
-            <Navbar />
+          <div className="flex h-screen bg-gray-50 text-gray-900 dark:bg-slate-900 dark:text-slate-50">
+            <Sidebar />
 
             {children}
           </div>

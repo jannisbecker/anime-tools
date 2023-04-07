@@ -1,3 +1,5 @@
+'use client'
+
 import Button from 'app/base-ui/Button'
 import LoadingIndicator from 'app/base-ui/LoadingIndicator'
 import { AuthContext } from '../AuthContext'
@@ -6,7 +8,7 @@ import { ReactNode, useContext } from 'react'
 import DateFixChangePreviewTable from './DateFixChangePreviewTable'
 
 export default function DateFixerPage() {
-  const { loggedIn, userInfo, login } = useContext(AuthContext)
+  const { isLoggedIn, userInfo, login } = useContext(AuthContext)
 
   const { state, calculateChanges } = useAnilistDateFixer(userInfo?.id)
 
@@ -39,7 +41,7 @@ export default function DateFixerPage() {
     <div className="flex flex-grow flex-col overflow-auto">
       <div className="container mx-auto">
         <div className="my-6 flex flex-col items-center">
-          {loggedIn ? (
+          {isLoggedIn() ? (
             currentStepHtml()
           ) : (
             <>

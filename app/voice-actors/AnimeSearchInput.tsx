@@ -52,7 +52,7 @@ export default function AnimeSearchInput({
       </div>
 
       {results.length > 0 && (
-        <div className="absolute inset-x-0 z-10 max-h-[300px] overflow-auto rounded-b bg-bgSecondary">
+        <div className="absolute inset-x-0 z-10 max-h-[300px] overflow-auto rounded-b bg-slate-800">
           {results.map((anime) => (
             <AnimeListItem
               key={anime.id}

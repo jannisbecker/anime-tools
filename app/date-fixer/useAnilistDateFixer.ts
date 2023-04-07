@@ -1,3 +1,5 @@
+'use client'
+
 import { getUserActivities, getUserMediaWithDates } from 'api/anilist'
 import { getAll } from 'api/anilist/utils'
 import { useState } from 'react'

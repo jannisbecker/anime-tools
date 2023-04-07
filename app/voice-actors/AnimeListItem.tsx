@@ -8,7 +8,7 @@ type Props = {
 export default function AnimeListItem({ anime, ...props }: Props) {
   return (
     <div
-      className="bg-bgSecondary hover:bg-bgPrimary flex cursor-pointer gap-3 px-3 py-2"
+      className="hover:bg-bgPrimary flex cursor-pointer gap-3 bg-slate-800 px-3 py-2"
       {...props}
     >
       <img

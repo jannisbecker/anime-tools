@@ -10,7 +10,7 @@ export default function TextInput({ fullWidth = false, ...props }) {
   return (
     <input
       className={classes(
-        'bg-bgSecondary text-textPrimary placeholder:text-textSecondary rounded px-2 py-2 outline-none',
+        'text-textPrimary placeholder:text-textSecondary rounded bg-white px-2 py-2 outline-none dark:bg-slate-800',
         fullWidth && 'w-full'
       )}
       style={styles}
